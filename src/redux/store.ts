@@ -1,11 +1,30 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { userSlice } from './user/user.slice';
 
-// TODO: Импортируйте ваши срезы (slices) и редьюсеры
+const isClient = typeof window !== 'undefined'
+
+let mainReducer
+
+const combinedReducers = combineReducers({
+	user: userSlice.reducer
+})
+
+if (isClient) {
+	const { persistReducer } = require('redux-persist')
+	const storage = require('redux-persist/lib/storage').default
+
+	const persistConfig = {
+		key: 'notify',
+		storage,
+	}
+
+	mainReducer = persistReducer(persistConfig, combinedReducers)
+} else {
+	mainReducer = combinedReducers
+}
 
 const store = configureStore({
-  reducer: {
-    // TODO: Добавьте ваши срезы (slices) и редьюсеры здесь
-  },
+  reducer: mainReducer,
 });
 
 export default store;
