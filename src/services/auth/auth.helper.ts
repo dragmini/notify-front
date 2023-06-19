@@ -1,8 +1,6 @@
 import Cookies from 'js-cookie'
 import { IAuthResponse, ITokens } from 'redux/user/user.interface'
 
-// import { IAuthResponse, ITokens } from '@/store/user/user.interface'
-
 export const getAccessToken = () => {
 	const accessToken = Cookies.get('accessToken')
 

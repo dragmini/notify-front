@@ -1,4 +1,5 @@
 import { useActions } from "hooks/useActions";
+import AuthLayout from "layout/AuthLayout";
 import { useState } from "react";
 
 export const AuthScreen = () => {
@@ -13,8 +14,8 @@ export const AuthScreen = () => {
   };
 
   return (
-    <div>
+    <AuthLayout>
       <button onClick={send}>Auth</button>
-    </div>
+    </AuthLayout>
   );
 };
