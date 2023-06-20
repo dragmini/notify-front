@@ -11,7 +11,9 @@ const colors = {
 	secondary: '#161D25',
 	'bg-color': '#F2F2F5',
 	aqua: '#268697',
-	red: twColors.red[400]
+	red: twColors.red[400],
+	base: '#002047',
+	'base-secondary': '#001329'
 }
 
 

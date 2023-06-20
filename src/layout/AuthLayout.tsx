@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+// import Header from '@/ui/Header';
+import Header from '../ui/Header';
+import { ReactNode } from 'react';
 
 interface LayoutProps {
   children: ReactNode;
@@ -6,17 +8,18 @@ interface LayoutProps {
 
 const AuthLayout = ({ children }: LayoutProps) => {
   return (
-    <div>
-      <header>
-        <img src="logo.png" />
-      </header>
+    <section className="h-screen">
+      {/* <Header /> */}
+      {/* <Header /> */}
 
-      <main>{children}</main>
+      <main className="h-full flex items-center justify-center">
+        {children}
+      </main>
 
-      <footer>
+      {/* <footer>
         &copy; {new Date().getFullYear()} Мой сайт. Все права защищены.
-      </footer>
-    </div>
+      </footer> */}
+    </section>
   );
 };
 
