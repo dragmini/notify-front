@@ -28,3 +28,4 @@ const store = configureStore({
 });
 
 export default store;
+export type TypeRootState = ReturnType<typeof mainReducer>

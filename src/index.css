@@ -4,4 +4,5 @@
 
 body {
   @apply bg-base;
+  font-family: 'Gilroy';
 }
