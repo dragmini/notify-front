@@ -1,28 +1,11 @@
-// import { IOrder } from './order.interface'
-// import { IProduct } from './product.interface'
+import { IDefaultData } from "./default.interface"
 
-export interface IUser {
-	id: number
+export interface IUser extends IDefaultData {
 	email: string
-	name: string
+	firstName: string
+	secondName: string
 	avatarPath: string
 	password: string
 	phone: string
+	birthDate: string
 }
-
-// export interface IUserUpdate {
-// 	email?: string
-// 	name?: string
-// 	avatarPath?: string
-// 	phone?: string
-// }
-
-// export interface IUserFull extends IUser {
-// 	favorites: IProduct[]
-// 	// orders: IOrder[]
-// }
-
-// export interface IUserPreview {
-// 	name: string
-// 	avatarPath: string
-// }

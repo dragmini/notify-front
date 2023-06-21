@@ -9,6 +9,7 @@ export const useAuthRedirect = () => {
 
 
 	useEffect(() => {
-		if (user) navigate('/')
+		if (user) navigate('/chat')
+		else navigate('/auth')
 	}, [user])
 }

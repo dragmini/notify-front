@@ -1,12 +1,14 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { userSlice } from './user/user.slice';
+import chatSlice from './chat/chat.slice';
 
 const isClient = typeof window !== 'undefined'
 
 let mainReducer
 
 const combinedReducers = combineReducers({
-	user: userSlice.reducer
+	user: userSlice.reducer,
+	chat: chatSlice
 })
 
 if (isClient) {

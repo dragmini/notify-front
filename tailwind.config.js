@@ -14,7 +14,8 @@ const colors = {
 	red: twColors.red[400],
 	base: '#002047',
 	'base-secondary': '#001329',
-	blue: '#2F83E4'
+	blue: '#2F83E4',
+	light: '#CBCBCB'
 }
 
 
