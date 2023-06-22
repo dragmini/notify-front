@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 body {
-  @apply bg-base;
+  @apply bg-base p-5;
   font-family: 'Gilroy';
 }

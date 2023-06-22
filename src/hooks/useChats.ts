@@ -3,7 +3,7 @@ import { ChatService } from "../services/chat/chat.service"
 import { useQuery } from "react-query"
 
 export const useChats = () => {
-    const { data, isLoading, error } = useQuery(['get chats'], () => ChatService.getAllChats(), {
+    const { data, isLoading, error, refetch } = useQuery(['get chats'], () => ChatService.getAllChats(), {
 			select: ({ data }) => data,
 			onError: error => {
 				console.log(errorCatch(error))
@@ -11,5 +11,5 @@ export const useChats = () => {
     })
     
     
-    return {data, isLoading, error}
+    return {data, isLoading, error, refetch}
 }
