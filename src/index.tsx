@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import Root from "./Root";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { SocketProvider } from "./SocketContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,7 +18,9 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <Root />
+        <SocketProvider>
+          <Root />
+        </SocketProvider>
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>

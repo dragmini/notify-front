@@ -5,9 +5,10 @@ import Button from "../button/Button";
 import { BiMessageSquareEdit } from "react-icons/bi";
 import { IMessageSend } from "types/chat.interface";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { SocketService } from "services/socket/socket.service";
 import { useSelector } from "react-redux";
-import { TypeRootState } from "@/redux/store";
+import { TypeRootState } from "redux/store";
+import { SocketContext } from "SocketContext";
+import React, { useContext } from "react";
 
 const ChatMessages = ({ messages }: { messages: IMessage[] }) => {
   const {
@@ -19,11 +20,15 @@ const ChatMessages = ({ messages }: { messages: IMessage[] }) => {
     mode: "onChange",
   });
 
-  const { socket } = SocketService.initialSocket();
-  const chatId = useSelector((state: TypeRootState) => state.chat.selectedChat);
+  const chatId: number = useSelector(
+    (state: TypeRootState) => state.chat.selectedChat
+  );
+  const socket = useContext(SocketContext);
 
   const onSubmit: SubmitHandler<IMessageSend> = (data) => {
-    socket.emit("chat message", { ...data, chatId: chatId });
+    if (socket) {
+      socket.emit("chat message", { ...data, chatId: chatId });
+    }
 
     reset();
   };
