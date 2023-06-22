@@ -10,3 +10,8 @@ export interface IChat extends IDefaultData {
 export interface IInitialStateChat {
     selectChat: number | null
 }
+
+export interface IMessageSend {
+    chatId: number
+    content: string
+}

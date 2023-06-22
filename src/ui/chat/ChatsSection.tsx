@@ -33,6 +33,7 @@ const ChatsSection = () => {
                   <button
                     className="text-white"
                     onClick={() => createNewChat(userMap.id)}
+                    key={userMap.id}
                   >
                     {userMap.firstName} {userMap.secondName}
                   </button>
