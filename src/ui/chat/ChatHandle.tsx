@@ -7,11 +7,16 @@ import { useState } from "react";
 import { IMessage } from "types/message.interface";
 import { SocketContext } from "SocketContext";
 import React, { useContext, useEffect } from "react";
+import ChatPerson from "./ChatPerson";
+import { IUser } from "types/user.interface";
+import { useAuth } from "hooks/useAuth";
 
 const ChatHandle = () => {
   const selectedChatId = useSelector(
     (state: TypeRootState) => state.chat.selectedChat
   );
+
+  const { user } = useAuth();
 
   const { data, isLoading, error } = useQuery(
     ["get chats by id", selectedChatId],
@@ -22,12 +27,16 @@ const ChatHandle = () => {
       onSuccess: (data) => {
         if (data && data.messages) {
           setMessages(data.messages);
+          setUsers([
+            ...data.users.filter((userMap: IUser) => user.id !== userMap.id),
+          ]);
         }
       },
     }
   );
 
   const [messages, setMessages] = useState<IMessage[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
 
   const socket = useContext(SocketContext);
 
@@ -53,7 +62,14 @@ const ChatHandle = () => {
 
   return (
     <div className="w-full ">
-      {data !== undefined ? <ChatMessages messages={messages} /> : ""}
+      {data !== undefined ? (
+        <div className="flex flex-col gap-5 chat">
+          <ChatPerson users={users} />
+          <ChatMessages messages={messages} />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
