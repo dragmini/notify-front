@@ -39,24 +39,24 @@ const ChatMessages = ({ messages }: props) => {
 
   return (
     <section className=" bg-base-secondary flex flex-col  p-6 rounded-[10px] overflow-hidden chat">
-      <div className="overflow-y-auto f-full">
+      <div className="overflow-y-auto messages">
         {messages.length ? (
           messages.map((message) => (
             <Message message={message} key={message.id} />
           ))
         ) : (
-          <p className="text-white text-center justify-self-center m-auto chat">
+          <p className="text-white text-center justify-self-center m-auto">
             Диалог пустой...
           </p>
         )}
       </div>
       <form
-        className="flex items-center gap-5 justify-self-end"
+        className="flex items-end gap-5 justify-self-end pt-5"
         onSubmit={handleSubmit(onSubmit)}
       >
         <ChatField
           placeholder="Введите сообщение"
-          className="w-full"
+          className="w-full self-end mb-0"
           {...chatMessage("content", {
             required: "Content is required",
             minLength: {
