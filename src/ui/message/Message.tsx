@@ -11,19 +11,19 @@ const Message = ({ message }: { message: IMessage }) => {
     <div className={"animate-opacity flex gap-[6px] flex-col"}>
       <div
         className={
-          "flex gap-8 justify-end" + (isSelf ? "" : " flex-row-reverse")
+          "flex gap-8 justify-end " + (isSelf ? "" : " flex-row-reverse")
         }
       >
         <p
           className={
-            "rounded-[5px] p-[10px] text-white text-[16px] flex items-center min-w-[20%] " +
+            "max-w-[60%] whitespace-pre-line break-all rounded-[5px] p-[10px] text-white text-[16px] flex items-center min-w-[20%] " +
             (isSelf ? " bg-base" : "border-[2px] border-blue rounded-[10px]")
           }
         >
           {message.content}
         </p>
         <img
-          className="w-[50px] rounded-full items-start"
+          className="w-[50px] h-[50px] rounded-full items-start"
           src={message.user.avatarPath}
           alt=""
         />

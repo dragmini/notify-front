@@ -39,7 +39,7 @@ const ChatMessages = ({ messages }: props) => {
 
   return (
     <section className=" bg-base-secondary flex flex-col  p-6 rounded-[10px] overflow-hidden chat">
-      <div className="overflow-y-auto messages">
+      <div className="overflow-y-auto messages flex flex-col gap-5">
         {messages.length ? (
           messages.map((message) => (
             <Message message={message} key={message.id} />
@@ -66,7 +66,7 @@ const ChatMessages = ({ messages }: props) => {
           })}
           error={errors.content?.message}
         />
-        <Button variant="blue">
+        <Button variant="blue" className="h-[54px] self-start">
           <BiMessageSquareEdit className="" />
         </Button>
       </form>
