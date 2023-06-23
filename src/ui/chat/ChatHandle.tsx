@@ -6,7 +6,7 @@ import { ChatService } from "services/chat/chat.service";
 import { useState } from "react";
 import { IMessage } from "types/message.interface";
 import { SocketContext } from "SocketContext";
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import ChatPerson from "./ChatPerson";
 import { IUser } from "types/user.interface";
 import { useAuth } from "hooks/useAuth";
@@ -27,9 +27,11 @@ const ChatHandle = () => {
       onSuccess: (data) => {
         if (data && data.messages) {
           setMessages(data.messages);
-          setUsers([
-            ...data.users.filter((userMap: IUser) => user.id !== userMap.id),
-          ]);
+          if (data.users.length === 1) setUsers(data.users);
+          else
+            setUsers([
+              ...data.users.filter((userMap: IUser) => user.id !== userMap.id),
+            ]);
         }
       },
     }
@@ -43,8 +45,6 @@ const ChatHandle = () => {
   useEffect(() => {
     if (socket) {
       const handleNewMessage = (newMessage: IMessage) => {
-        // console.log(selectedChatId, newMessage.chatId);
-        console.log(selectedChatId);
         if (selectedChatId === newMessage.chatId)
           setMessages((prevMessages) => [...prevMessages, newMessage]);
       };

@@ -6,11 +6,14 @@ import { useUsers } from "hooks/useUsers";
 import { IUser } from "types/user.interface";
 import { ChatService } from "services/chat/chat.service";
 import { useAuth } from "hooks/useAuth";
+import ChatHeader from "./ChatHeader";
+import { useProfile } from "hooks/useProfile";
 
 const ChatsSection = () => {
   const { data, isLoading, error, refetch } = useChats();
   const { usersData, isLoadingUsers, errorUsers } = useUsers();
   const { user } = useAuth();
+  const { profileData, profileIsLoading } = useProfile();
   let filteredUser = [];
 
   if (!isLoadingUsers)
@@ -23,36 +26,42 @@ const ChatsSection = () => {
   };
 
   return (
-    <section className="text-[24px] flex gap-5">
-      <div className="flex flex-col min-w-[350px] gap-2 animate-opacity chat">
-        <div className="border border-white rounded-[10px] p-5">
-          <p className="text-white font-semibold">Список друзей</p>
-          <div className="flex flex-col  items-start">
-            {!isLoadingUsers
-              ? filteredUser.map((userMap: IUser) => (
-                  <button
-                    className="text-white"
-                    onClick={() => createNewChat(userMap.id)}
-                    key={userMap.id}
-                  >
-                    {userMap.firstName} {userMap.secondName}
-                  </button>
+    <section className="text-[24px] flex flex-col gap-5">
+      {!profileIsLoading ? <ChatHeader user={profileData} /> : ""}
+      <div className="flex gap-5">
+        <div className="flex flex-col min-w-[350px] gap-2 animate-opacity chat">
+          <div className="border border-white rounded-[10px] p-5">
+            <p className="text-white font-semibold">Список друзей</p>
+            <div className="flex flex-col  items-start">
+              {!isLoadingUsers
+                ? filteredUser.map((userMap: IUser) => (
+                    <button
+                      className="text-white"
+                      onClick={() => createNewChat(userMap.id)}
+                      key={userMap.id}
+                    >
+                      {userMap.firstName} {userMap.secondName}
+                    </button>
+                  ))
+                : ""}
+              <button
+                className="text-white"
+                onClick={() => createNewChat(null)}
+              >
+                Избранное
+              </button>
+            </div>
+          </div>
+          <div className="overflow-y-auto flex flex-col gap-2">
+            {!isLoading
+              ? data.chats.map((chat: IChat) => (
+                  <ChatPreview chat={chat} key={chat.id} />
                 ))
-              : ""}
-            <button className="text-white" onClick={() => createNewChat(null)}>
-              Избранное
-            </button>
+              : "НЕту"}
           </div>
         </div>
-        <div className="overflow-y-auto flex flex-col gap-2">
-          {!isLoading
-            ? data.chats.map((chat: IChat) => (
-                <ChatPreview chat={chat} key={chat.id} />
-              ))
-            : "НЕту"}
-        </div>
+        <ChatHandle />
       </div>
-      <ChatHandle />
     </section>
   );
 };
