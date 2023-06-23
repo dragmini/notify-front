@@ -29,31 +29,27 @@ const ChatHandle = () => {
 
   const [messages, setMessages] = useState<IMessage[]>([]);
 
-  // useEffect(() => {
-  //   console.log(messages);
-  //   // Дополнительные операции после обновления messages
-  // }, [messages]);
-
   const socket = useContext(SocketContext);
 
   useEffect(() => {
     if (socket) {
       const handleNewMessage = (newMessage: IMessage) => {
-        if (selectedChatId !== newMessage.chatId) return null;
-        // const messagesId = messages.map((el) => el.id);
-        // if (messagesId.includes(newMessage.id)) return null;
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        // console.log(selectedChatId, newMessage.chatId);
+        console.log(selectedChatId);
+        if (selectedChatId === newMessage.chatId)
+          setMessages((prevMessages) => [...prevMessages, newMessage]);
       };
 
       // Проверяем, установлена ли подписка
       const hasSubscribed = socket
         .listeners("chat message")
         .includes(handleNewMessage);
+
       if (!hasSubscribed) {
         socket.on("chat message", handleNewMessage);
       }
     }
-  }, [socket]);
+  }, [socket, selectedChatId]);
 
   return (
     <div className="w-full ">
