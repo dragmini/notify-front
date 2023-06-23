@@ -8,9 +8,18 @@ const Message = ({ message }: { message: IMessage }) => {
   const formattedDate = moment(message.createdAt).format("HH:mm");
 
   return (
-    <div className="animate-opacity flex flex-col gap-[6px]">
-      <div className="flex justify-end gap-8">
-        <p className="bg-base rounded-[5px] p-[10px] text-white text-[16px] flex items-center min-w-[20%]">
+    <div className={"animate-opacity flex gap-[6px] flex-col"}>
+      <div
+        className={
+          "flex gap-8 justify-end" + (isSelf ? "" : " flex-row-reverse")
+        }
+      >
+        <p
+          className={
+            "rounded-[5px] p-[10px] text-white text-[16px] flex items-center min-w-[20%] " +
+            (isSelf ? " bg-base" : "border-[2px] border-blue rounded-[10px]")
+          }
+        >
           {message.content}
         </p>
         <img
@@ -19,7 +28,12 @@ const Message = ({ message }: { message: IMessage }) => {
           alt=""
         />
       </div>
-      <p className="text-white text-[12px] text-end relative right-[82px]">
+      <p
+        className={
+          "text-[#CBCBCB] text-[12px] relative " +
+          (isSelf ? "right-[82px] text-end" : "left-[82px]")
+        }
+      >
         {formattedDate}
       </p>
     </div>

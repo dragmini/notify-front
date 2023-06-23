@@ -39,8 +39,9 @@ const ChatHandle = () => {
   useEffect(() => {
     if (socket) {
       const handleNewMessage = (newMessage: IMessage) => {
-        const messagesId = messages.map((el) => el.id);
-        if (messagesId.includes(newMessage.id)) return null;
+        if (selectedChatId !== newMessage.chatId) return null;
+        // const messagesId = messages.map((el) => el.id);
+        // if (messagesId.includes(newMessage.id)) return null;
         setMessages((prevMessages) => [...prevMessages, newMessage]);
       };
 
