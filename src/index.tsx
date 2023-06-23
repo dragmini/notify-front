@@ -18,9 +18,9 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <SocketProvider>
-          <Root />
-        </SocketProvider>
+        {/* <SocketProvider> */}
+        <Root />
+        {/* </SocketProvider> */}
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>

@@ -24,12 +24,13 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
     },
   });
 
-  // useEffect(() => {
-  //   return () => {
-  //     // Отключаем сокет при размонтировании компонента
-  //     socket.disconnect();
-  //   };
-  // }, []);
+  useEffect(() => {
+    return () => {
+      // Отключаем сокет при размонтировании компонента
+      console.log(1);
+      socket.disconnect();
+    };
+  }, []);
 
   return (
     <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>

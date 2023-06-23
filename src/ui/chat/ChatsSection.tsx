@@ -24,7 +24,7 @@ const ChatsSection = () => {
 
   return (
     <section className="text-[24px] flex gap-5">
-      <div className="flex flex-col min-w-[350px] gap-2 animate-opacity">
+      <div className="flex flex-col min-w-[350px] gap-2 animate-opacity chat">
         <div className="border border-white rounded-[10px] p-5">
           <p className="text-white font-semibold">Список друзей</p>
           <div className="flex flex-col  items-start">
@@ -44,11 +44,13 @@ const ChatsSection = () => {
             </button>
           </div>
         </div>
-        {!isLoading
-          ? data.chats.map((chat: IChat) => (
-              <ChatPreview chat={chat} key={chat.id} />
-            ))
-          : "НЕту"}
+        <div className="overflow-y-auto flex flex-col gap-2">
+          {!isLoading
+            ? data.chats.map((chat: IChat) => (
+                <ChatPreview chat={chat} key={chat.id} />
+              ))
+            : "НЕту"}
+        </div>
       </div>
       <ChatHandle />
     </section>

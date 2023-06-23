@@ -6,7 +6,7 @@ import { ChatService } from "services/chat/chat.service";
 import { useState } from "react";
 import { IMessage } from "types/message.interface";
 import { SocketContext } from "SocketContext";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 const ChatHandle = () => {
   const selectedChatId = useSelector(
@@ -29,16 +29,31 @@ const ChatHandle = () => {
 
   const [messages, setMessages] = useState<IMessage[]>([]);
 
+  // useEffect(() => {
+  //   console.log(messages);
+  //   // Дополнительные операции после обновления messages
+  // }, [messages]);
+
   const socket = useContext(SocketContext);
 
-  if (socket) {
-    socket.on("connect", () => {
-      console.log("1");
-    });
-    socket.on("chat message", (newMessage: IMessage) => {
-      setMessages([...messages, newMessage]);
-    });
-  }
+  useEffect(() => {
+    if (socket) {
+      const handleNewMessage = (newMessage: IMessage) => {
+        const messagesId = messages.map((el) => el.id);
+        if (messagesId.includes(newMessage.id)) return null;
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+      };
+
+      // Проверяем, установлена ли подписка
+      const hasSubscribed = socket
+        .listeners("chat message")
+        .includes(handleNewMessage);
+      if (!hasSubscribed) {
+        socket.on("chat message", handleNewMessage);
+      }
+    }
+  }, [socket]);
+
   return (
     <div className="w-full ">
       {data !== undefined ? <ChatMessages messages={messages} /> : ""}
